@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hrms-ai-assistant-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=HRMS AI Assistant
+      - APP_ENV=development
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - SECRET_KEY=dev-secret-key-change-in-production-min-32-chars-long
+      - DATABASE_URL=sqlite:///./storage/hrms_assistant.db
+      - VECTOR_STORE_TYPE=qdrant
+      - QDRANT_MODE=remote
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_COLLECTION_NAME=hrms_knowledge
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_CHAT_MODEL=qwen3:4b
+      - OLLAMA_EMBED_MODEL=nomic-embed-text
+      - EMBEDDING_PROVIDER=mock
+      - HRMS_ADAPTER_TYPE=mock
+    volumes:
+      - app_storage:/app/storage
+    depends_on:
+      - qdrant
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: hrms-ai-assistant-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+
+  # Optional local Ollama container (run with: docker compose --profile with-ollama up)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: hrms-ai-assistant-ollama
+    restart: unless-stopped
+    profiles:
+      - with-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  app_storage:
+  qdrant_data:
+  ollama_data:

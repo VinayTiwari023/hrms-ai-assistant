@@ -1,5 +1,13 @@
 # HRMS AI Assistant
 
+[![CI](https://github.com/VinayTiwari023/hrms-ai-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/VinayTiwari023/hrms-ai-assistant/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12-3776AB.svg?logo=python&logoColor=white)](pyproject.toml)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Pydantic](https://img.shields.io/badge/Pydantic-v2-E92063.svg?logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
+[![Tests](https://img.shields.io/badge/Tests-168%20passing-brightgreen.svg)](tests/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg?logo=docker&logoColor=white)](docker-compose.yml)
+
 An independent, modular, and open-source-ready backend reference implementation for Human Resource Management System (HRMS) conversational AI.
 
 > [!NOTE]
@@ -218,6 +226,21 @@ The system supports three Qdrant operational modes:
 ### 8.3 Interactive API Documentation
 In development mode (`APP_ENV=development`), interactive Swagger UI documentation is available at:
 `http://127.0.0.1:8000/docs`
+
+### 8.4 Docker & Docker Compose Quick Start
+Spin up the complete backend alongside a dedicated Qdrant vector store in one command:
+```bash
+docker compose up -d --build
+```
+
+To include a local Ollama container in the compose network:
+```bash
+docker compose --profile with-ollama up -d --build
+```
+Verify container health:
+```bash
+docker compose ps
+```
 
 ---
 
