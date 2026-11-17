@@ -28,10 +28,11 @@ class ExtractedSection:
 
 
 def sanitize_filename(filename: str) -> str:
-    """Strip directory traversal sequences and unsafe characters from uploaded filename."""
-    clean_name = Path(filename).name
-    # Strip any leading dots, null characters or backslashes
-    clean_name = re.sub(r"[\x00-\x1f\\/]", "", clean_name).strip()
+    """Strip directory traversal sequences and unsafe characters from uploaded filename cross-platform."""
+    # Normalize both Windows and Unix slashes so extraction works regardless of OS
+    normalized = filename.replace("\\", "/")
+    clean_name = re.sub(r"^.*[/\\]", "", normalized)
+    clean_name = re.sub(r"[\x00-\x1f]", "", clean_name).strip()
     clean_name = clean_name.lstrip(".")
     if not clean_name:
         return "unnamed_document"
