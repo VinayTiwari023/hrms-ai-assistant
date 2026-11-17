@@ -1,0 +1,90 @@
+{
+  "today": {
+    "EMP-1001": {
+      "employee_id": "EMP-1001",
+      "date": "2026-11-16",
+      "status": "Present",
+      "check_in": "09:12",
+      "check_out": null,
+      "work_minutes": 270,
+      "is_late": false,
+      "late_minutes": 0
+    },
+    "EMP-1002": {
+      "employee_id": "EMP-1002",
+      "date": "2026-11-16",
+      "status": "Present",
+      "check_in": "08:55",
+      "check_out": null,
+      "work_minutes": 285,
+      "is_late": false,
+      "late_minutes": 0
+    },
+    "EMP-1003": {
+      "employee_id": "EMP-1003",
+      "date": "2026-11-16",
+      "status": "Present",
+      "check_in": "08:30",
+      "check_out": null,
+      "work_minutes": 310,
+      "is_late": false,
+      "late_minutes": 0
+    },
+    "EMP-1004": {
+      "employee_id": "EMP-1004",
+      "date": "2026-11-16",
+      "status": "On Leave",
+      "check_in": null,
+      "check_out": null,
+      "work_minutes": 0,
+      "is_late": false,
+      "late_minutes": 0
+    }
+  },
+  "monthly": {
+    "EMP-1001": {
+      "employee_id": "EMP-1001",
+      "year": 2026,
+      "month": 11,
+      "total_working_days": 21,
+      "present_days": 19.5,
+      "absent_days": 0.5,
+      "leave_days": 1.0,
+      "holidays": 2,
+      "late_count": 1
+    },
+    "EMP-1002": {
+      "employee_id": "EMP-1002",
+      "year": 2026,
+      "month": 11,
+      "total_working_days": 21,
+      "present_days": 21.0,
+      "absent_days": 0.0,
+      "leave_days": 0.0,
+      "holidays": 2,
+      "late_count": 0
+    },
+    "EMP-1003": {
+      "employee_id": "EMP-1003",
+      "year": 2026,
+      "month": 11,
+      "total_working_days": 21,
+      "present_days": 20.0,
+      "absent_days": 0.0,
+      "leave_days": 1.0,
+      "holidays": 2,
+      "late_count": 0
+    },
+    "EMP-1004": {
+      "employee_id": "EMP-1004",
+      "year": 2026,
+      "month": 11,
+      "total_working_days": 21,
+      "present_days": 17.0,
+      "absent_days": 1.0,
+      "leave_days": 3.0,
+      "holidays": 2,
+      "late_count": 2
+    }
+  }
+}

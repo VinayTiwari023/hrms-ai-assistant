@@ -1,0 +1,54 @@
+[
+  {
+    "employee_id": "EMP-1001",
+    "first_name": "Alex",
+    "last_name": "Rivera",
+    "full_name": "Alex Rivera",
+    "email": "alex.rivera@novatech-fictional.internal",
+    "department": "Engineering",
+    "designation": "Senior Software Engineer",
+    "role": "employee",
+    "joining_date": "2023-03-15",
+    "reporting_manager_id": "EMP-1003",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "EMP-1002",
+    "first_name": "Sarah",
+    "last_name": "Chen",
+    "full_name": "Sarah Chen",
+    "email": "sarah.chen@novatech-fictional.internal",
+    "department": "People Operations",
+    "designation": "HR Business Partner",
+    "role": "hr",
+    "joining_date": "2021-06-01",
+    "reporting_manager_id": "EMP-1003",
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "EMP-1003",
+    "first_name": "Marcus",
+    "last_name": "Vance",
+    "full_name": "Marcus Vance",
+    "email": "marcus.vance@novatech-fictional.internal",
+    "department": "Engineering",
+    "designation": "Engineering Director",
+    "role": "admin",
+    "joining_date": "2019-11-10",
+    "reporting_manager_id": null,
+    "employment_status": "active"
+  },
+  {
+    "employee_id": "EMP-1004",
+    "first_name": "Priya",
+    "last_name": "Sharma",
+    "full_name": "Priya Sharma",
+    "email": "priya.sharma@novatech-fictional.internal",
+    "department": "Product Design",
+    "designation": "Senior UX Designer",
+    "role": "employee",
+    "joining_date": "2022-08-20",
+    "reporting_manager_id": "EMP-1003",
+    "employment_status": "active"
+  }
+]

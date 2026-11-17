@@ -1,0 +1,50 @@
+[
+  {
+    "date": "2026-01-01",
+    "name": "New Year's Day",
+    "holiday_type": "National",
+    "is_optional": false
+  },
+  {
+    "date": "2026-01-26",
+    "name": "Republic Day",
+    "holiday_type": "National",
+    "is_optional": false
+  },
+  {
+    "date": "2026-03-25",
+    "name": "Spring Festival",
+    "holiday_type": "Public",
+    "is_optional": false
+  },
+  {
+    "date": "2026-05-01",
+    "name": "International Workers' Day",
+    "holiday_type": "Public",
+    "is_optional": false
+  },
+  {
+    "date": "2026-08-15",
+    "name": "Independence Day",
+    "holiday_type": "National",
+    "is_optional": false
+  },
+  {
+    "date": "2026-10-02",
+    "name": "Gandhi Jayanti",
+    "holiday_type": "National",
+    "is_optional": false
+  },
+  {
+    "date": "2026-11-10",
+    "name": "Festival of Lights",
+    "holiday_type": "Public",
+    "is_optional": false
+  },
+  {
+    "date": "2026-12-25",
+    "name": "Christmas Day",
+    "holiday_type": "Public",
+    "is_optional": false
+  }
+]

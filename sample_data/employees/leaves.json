@@ -1,0 +1,176 @@
+{
+  "balances": {
+    "EMP-1001": {
+      "employee_id": "EMP-1001",
+      "year": 2026,
+      "balances": [
+        {
+          "leave_type": "Annual Leave",
+          "allocated": 18.0,
+          "used": 6.0,
+          "pending": 1.0,
+          "available": 11.0
+        },
+        {
+          "leave_type": "Sick Leave",
+          "allocated": 12.0,
+          "used": 2.0,
+          "pending": 0.0,
+          "available": 10.0
+        },
+        {
+          "leave_type": "Casual Leave",
+          "allocated": 8.0,
+          "used": 3.0,
+          "pending": 0.0,
+          "available": 5.0
+        }
+      ]
+    },
+    "EMP-1002": {
+      "employee_id": "EMP-1002",
+      "year": 2026,
+      "balances": [
+        {
+          "leave_type": "Annual Leave",
+          "allocated": 20.0,
+          "used": 4.0,
+          "pending": 0.0,
+          "available": 16.0
+        },
+        {
+          "leave_type": "Sick Leave",
+          "allocated": 12.0,
+          "used": 1.0,
+          "pending": 0.0,
+          "available": 11.0
+        },
+        {
+          "leave_type": "Casual Leave",
+          "allocated": 8.0,
+          "used": 2.0,
+          "pending": 0.0,
+          "available": 6.0
+        }
+      ]
+    },
+    "EMP-1003": {
+      "employee_id": "EMP-1003",
+      "year": 2026,
+      "balances": [
+        {
+          "leave_type": "Annual Leave",
+          "allocated": 22.0,
+          "used": 8.0,
+          "pending": 0.0,
+          "available": 14.0
+        },
+        {
+          "leave_type": "Sick Leave",
+          "allocated": 12.0,
+          "used": 0.0,
+          "pending": 0.0,
+          "available": 12.0
+        },
+        {
+          "leave_type": "Casual Leave",
+          "allocated": 8.0,
+          "used": 1.0,
+          "pending": 0.0,
+          "available": 7.0
+        }
+      ]
+    },
+    "EMP-1004": {
+      "employee_id": "EMP-1004",
+      "year": 2026,
+      "balances": [
+        {
+          "leave_type": "Annual Leave",
+          "allocated": 18.0,
+          "used": 5.0,
+          "pending": 2.0,
+          "available": 11.0
+        },
+        {
+          "leave_type": "Sick Leave",
+          "allocated": 12.0,
+          "used": 3.0,
+          "pending": 0.0,
+          "available": 9.0
+        },
+        {
+          "leave_type": "Casual Leave",
+          "allocated": 8.0,
+          "used": 4.0,
+          "pending": 0.0,
+          "available": 4.0
+        }
+      ]
+    }
+  },
+  "applications": {
+    "EMP-1001": [
+      {
+        "application_id": "APP-2026-001",
+        "employee_id": "EMP-1001",
+        "leave_type": "Annual Leave",
+        "start_date": "2026-03-10",
+        "end_date": "2026-03-12",
+        "days": 3.0,
+        "reason": "Family vacation",
+        "status": "Approved",
+        "applied_on": "2026-02-15"
+      },
+      {
+        "application_id": "APP-2026-002",
+        "employee_id": "EMP-1001",
+        "leave_type": "Sick Leave",
+        "start_date": "2026-07-04",
+        "end_date": "2026-07-05",
+        "days": 2.0,
+        "reason": "Seasonal viral fever",
+        "status": "Approved",
+        "applied_on": "2026-07-04"
+      },
+      {
+        "application_id": "APP-2026-003",
+        "employee_id": "EMP-1001",
+        "leave_type": "Annual Leave",
+        "start_date": "2026-12-28",
+        "end_date": "2026-12-28",
+        "days": 1.0,
+        "reason": "Year-end personal day",
+        "status": "Pending",
+        "applied_on": "2026-11-01"
+      }
+    ],
+    "EMP-1002": [
+      {
+        "application_id": "APP-2026-010",
+        "employee_id": "EMP-1002",
+        "leave_type": "Casual Leave",
+        "start_date": "2026-04-18",
+        "end_date": "2026-04-18",
+        "days": 1.0,
+        "reason": "Home relocation",
+        "status": "Approved",
+        "applied_on": "2026-04-10"
+      }
+    ],
+    "EMP-1003": [],
+    "EMP-1004": [
+      {
+        "application_id": "APP-2026-020",
+        "employee_id": "EMP-1004",
+        "leave_type": "Annual Leave",
+        "start_date": "2026-11-16",
+        "end_date": "2026-11-18",
+        "days": 3.0,
+        "reason": "Attending Design Conference",
+        "status": "Approved",
+        "applied_on": "2026-11-01"
+      }
+    ]
+  }
+}
