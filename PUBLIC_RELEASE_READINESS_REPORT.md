@@ -133,8 +133,10 @@ python -m pytest tests/live/ -v
   5. Run pytest test suite (`python -m pytest tests/ -v`)
 - **Observed CI Results**:
   - Run `#4` (`44076922380`) on commit `25021bc`: **Success (All jobs passed)**
-  - Python 3.11 on Linux: **Passed**
-  - Python 3.12 on Linux: **Passed**
+  - Run `#5` (`44080109051`) on commit `51d50fe`: **Success (All jobs passed)**
+    - Python 3.11 on Linux (`ubuntu-latest`): **Passed**
+    - Python 3.12 on Linux (`ubuntu-latest`): **Passed**
+    - Workflow URL: [https://github.com/VinayTiwari023/hrms-ai-assistant/actions/runs/44080109051](https://github.com/VinayTiwari023/hrms-ai-assistant/actions/runs/44080109051)
 
 ---
 
