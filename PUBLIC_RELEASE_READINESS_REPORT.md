@@ -144,12 +144,12 @@ python -m pytest tests/live/ -v
 
 GitHub Dependabot automatically submitted two dependency update pull requests:
 
-| PR Number | Title | Target Update | Review Status | Action Taken |
+| PR Number | Title | Target Update | Compatibility & CI Status | Action Taken |
 | :--- | :--- | :--- | :--- | :--- |
-| **PR #1** | `build(deps): bump actions/checkout from 4 to 7` | `actions/checkout@v4` → `v7` | Compatible | **Not merged** (Kept open per explicit instructions) |
-| **PR #2** | `build(deps): bump actions/setup-python from 5 to 7` | `actions/setup-python@v5` → `v7` | Compatible | **Not merged** (Kept open per explicit instructions) |
+| **[PR #1](https://github.com/VinayTiwari023/hrms-ai-assistant/pull/1)** | `build(deps): bump actions/checkout from 4 to 7` | `actions/checkout@v4` → `v7` | **Compatible & Passing (2/2 Green)**<br>Run `44082496333`: Python 3.11 & 3.12 passed | **Not merged** (Kept open per instructions) |
+| **[PR #2](https://github.com/VinayTiwari023/hrms-ai-assistant/pull/2)** | `build(deps): bump actions/setup-python from 5 to 7` | `actions/setup-python@v5` → `v7` | **Compatible & Passing (2/2 Green)**<br>Run `44082510745`: Python 3.11 & 3.12 passed | **Not merged** (Kept open per instructions) |
 
-*Note*: Initial CI runs triggered on these PR branches failed because they were branched before the Linux cross-platform filename sanitization fix was merged into `main`. The PRs remain unmerged and can be rebased or updated by Dependabot on the next schedule cycle.
+*Note*: The initial CI failures on these branches (`❌ 0/2`) occurred because they were created prior to the Linux cross-platform filename sanitization fix on `main`. Following synchronization with the `main` fix, both PR CI workflows re-ran and passed completely (`✅ 2/2`). Both PRs remain open and unmerged as required.
 
 ---
 
