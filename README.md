@@ -307,7 +307,7 @@ Invoke-RestMethod -Uri http://127.0.0.1:8000/api/v1/chat/stream -Method POST -He
   - Suppresses interactive Swagger docs (`/docs`).
   - Disables public registration by default.
   - Keeps HRMS mutations disabled (`HRMS_MUTATIONS_ENABLED=false`).
-- For detailed security policies and vulnerability disclosure, see [SECURITY.md](file:///C:/Projects/hrms-ai-assistant/SECURITY.md) and [docs/SECURITY.md](file:///C:/Projects/hrms-ai-assistant/docs/SECURITY.md).
+- For detailed security policies and vulnerability disclosure, see [SECURITY.md](SECURITY.md) and [docs/SECURITY.md](docs/SECURITY.md).
 
 ---
 
@@ -318,7 +318,7 @@ Invoke-RestMethod -Uri http://127.0.0.1:8000/api/v1/chat/stream -Method POST -He
 - **Email Verification**: User registration does not include SMTP verification challenges. In production, employee accounts should be provisioned via admin APIs or enterprise identity federation.
 - **Enterprise SSO / SAML / OIDC**: Native OIDC/SAML is not built in; an enterprise API Gateway / Reverse Proxy must map identity claims into Bearer JWTs.
 - **Inference Sizing**: Local inference on CPU-only hardware suffers significant latency (~69–113 s TTFT). Production deployments require dedicated GPU nodes (Ollama, vLLM, or TGI).
-- See [docs/SECURITY_AND_LIMITATIONS.md](file:///C:/Projects/hrms-ai-assistant/docs/SECURITY_AND_LIMITATIONS.md) for full architectural disclosures.
+- See [docs/SECURITY_AND_LIMITATIONS.md](docs/SECURITY_AND_LIMITATIONS.md) for full architectural disclosures.
 
 ---
 
@@ -335,29 +335,29 @@ Invoke-RestMethod -Uri http://127.0.0.1:8000/api/v1/chat/stream -Method POST -He
 
 Comprehensive technical documentation is maintained in the `docs/` directory:
 
-1. [docs/ARCHITECTURE.md](file:///C:/Projects/hrms-ai-assistant/docs/ARCHITECTURE.md) — System architecture, component hierarchy, and design philosophy.
-2. [docs/API_DOCUMENTATION.md](file:///C:/Projects/hrms-ai-assistant/docs/API_DOCUMENTATION.md) — Complete REST endpoint specifications, request/response schemas, and error codes.
-3. [docs/SECURITY.md](file:///C:/Projects/hrms-ai-assistant/docs/SECURITY.md) — Security policies, role matrices, and invariant proofs.
-4. [docs/CHAT_ORCHESTRATION.md](file:///C:/Projects/hrms-ai-assistant/docs/CHAT_ORCHESTRATION.md) — Multi-turn dialogue loop, tool execution, and prompt builder.
-5. [docs/CONVERSATION_MANAGEMENT.md](file:///C:/Projects/hrms-ai-assistant/docs/CONVERSATION_MANAGEMENT.md) — History windowing, sliding context, and ownership isolation.
-6. [docs/STREAMING.md](file:///C:/Projects/hrms-ai-assistant/docs/STREAMING.md) — Server-Sent Events (SSE) streaming engine and event taxonomy.
-7. [docs/OBSERVABILITY.md](file:///C:/Projects/hrms-ai-assistant/docs/OBSERVABILITY.md) — Distributed correlation tracing, audit schemas, and redaction filters.
-8. [docs/LIVE_INTEGRATION_TESTING.md](file:///C:/Projects/hrms-ai-assistant/docs/LIVE_INTEGRATION_TESTING.md) — Hardware verification, live Ollama testing, and benchmark results.
-9. [docs/PRODUCTION_DEPLOYMENT_GUIDE.md](file:///C:/Projects/hrms-ai-assistant/docs/PRODUCTION_DEPLOYMENT_GUIDE.md) — Production topologies, Nginx reverse proxy, systemd, and monitoring.
-10. [docs/HRMS_INTEGRATION_GUIDE.md](file:///C:/Projects/hrms-ai-assistant/docs/HRMS_INTEGRATION_GUIDE.md) — Connecting enterprise HRMS APIs via `HttpHRMSAdapter` or custom adapters.
-11. [docs/SECURITY_AND_LIMITATIONS.md](file:///C:/Projects/hrms-ai-assistant/docs/SECURITY_AND_LIMITATIONS.md) — Operational boundaries, architectural constraints, and limitations.
-12. [FINAL_RELEASE_VERIFICATION_REPORT.md](file:///C:/Projects/hrms-ai-assistant/FINAL_RELEASE_VERIFICATION_REPORT.md) — Comprehensive pre-freeze audit and empirical verification report.
+1. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — System architecture, component hierarchy, and design philosophy.
+2. [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md) — Complete REST endpoint specifications, request/response schemas, and error codes.
+3. [docs/SECURITY.md](docs/SECURITY.md) — Security policies, role matrices, and invariant proofs.
+4. [docs/CHAT_ORCHESTRATION.md](docs/CHAT_ORCHESTRATION.md) — Multi-turn dialogue loop, tool execution, and prompt builder.
+5. [docs/CONVERSATION_MANAGEMENT.md](docs/CONVERSATION_MANAGEMENT.md) — History windowing, sliding context, and ownership isolation.
+6. [docs/STREAMING.md](docs/STREAMING.md) — Server-Sent Events (SSE) streaming engine and event taxonomy.
+7. [docs/OBSERVABILITY.md](docs/OBSERVABILITY.md) — Distributed correlation tracing, audit schemas, and redaction filters.
+8. [docs/LIVE_INTEGRATION_TESTING.md](docs/LIVE_INTEGRATION_TESTING.md) — Hardware verification, live Ollama testing, and benchmark results.
+9. [docs/PRODUCTION_DEPLOYMENT_GUIDE.md](docs/PRODUCTION_DEPLOYMENT_GUIDE.md) — Production topologies, Nginx reverse proxy, systemd, and monitoring.
+10. [docs/HRMS_INTEGRATION_GUIDE.md](docs/HRMS_INTEGRATION_GUIDE.md) — Connecting enterprise HRMS APIs via `HttpHRMSAdapter` or custom adapters.
+11. [docs/SECURITY_AND_LIMITATIONS.md](docs/SECURITY_AND_LIMITATIONS.md) — Operational boundaries, architectural constraints, and limitations.
+12. [FINAL_RELEASE_VERIFICATION_REPORT.md](FINAL_RELEASE_VERIFICATION_REPORT.md) — Comprehensive pre-freeze audit and empirical verification report.
 
 ---
 
 ## 15. Contributing & Community
 
-Contributions are welcomed! Please read [CONTRIBUTING.md](file:///C:/Projects/hrms-ai-assistant/CONTRIBUTING.md) for contribution workflows, testing requirements, and coding guidelines.
+Contributions are welcomed! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for contribution workflows, testing requirements, and coding guidelines.
 
-Please review our [Code of Conduct](file:///C:/Projects/hrms-ai-assistant/CODE_OF_CONDUCT.md) before participating.
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before participating.
 
 ---
 
 ## 16. License
 
-This project is licensed under the Apache License, Version 2.0. See [LICENSE](file:///C:/Projects/hrms-ai-assistant/LICENSE) for details.
+This project is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.

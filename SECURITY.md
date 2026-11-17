@@ -16,13 +16,17 @@ We provide security updates and patches for the following versions:
 We appreciate the responsible disclosure of security vulnerabilities. If you discover a vulnerability in **HRMS AI Assistant**, please do **NOT** open a public issue or discussion.
 
 ### Private Disclosure Process
-1. Report security issues by contacting the repository maintainers privately via GitHub Security Advisories or via email at `security-alert@example.com` (replace with maintainer email upon repository publication).
-2. Include the following details:
-   - Type of vulnerability (e.g. Broken Object Level Authorization, prompt injection bypassing boundaries, credential disclosure).
+1. Report security issues privately through GitHub Security Advisories:
+   👉 **[Open a Private Security Advisory](https://github.com/VinayTiwari023/hrms-ai-assistant/security/advisories/new)**
+
+   > [!NOTE]
+   > Private vulnerability reporting must be enabled in repository settings (under **Settings > Code security and analysis > Private vulnerability reporting**) for this advisory route to accept submissions.
+
+2. Include the following details in your advisory:
+   - Type of vulnerability (e.g., Broken Object Level Authorization, prompt injection bypassing boundaries, credential disclosure).
    - Step-by-step instructions or proof-of-concept to reproduce the issue.
    - Affected components, configurations, and version.
    - Any proposed remediation or patch.
-3. We will acknowledge receipt of your report within 48 hours and provide an estimated timeline for remediation.
 
 ---
 
@@ -42,5 +46,5 @@ All users, integrators, and contributors must respect the following security gua
    - Mutations remain disabled (`HRMS_MUTATIONS_ENABLED=false`).
 
 For in-depth architectural details, see:
-- [docs/SECURITY.md](file:///C:/Projects/hrms-ai-assistant/docs/SECURITY.md) — Comprehensive Security & Compliance Specification
-- [docs/SECURITY_AND_LIMITATIONS.md](file:///C:/Projects/hrms-ai-assistant/docs/SECURITY_AND_LIMITATIONS.md) — Security Architecture & Operational Limitations
+- [docs/SECURITY.md](docs/SECURITY.md) — Comprehensive Security & Compliance Specification
+- [docs/SECURITY_AND_LIMITATIONS.md](docs/SECURITY_AND_LIMITATIONS.md) — Security Architecture & Operational Limitations

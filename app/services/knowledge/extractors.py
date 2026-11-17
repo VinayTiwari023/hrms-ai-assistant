@@ -27,15 +27,36 @@ class ExtractedSection:
     page_number: int | None = None
 
 
-def sanitize_filename(filename: str) -> str:
-    """Strip directory traversal sequences and unsafe characters from uploaded filename cross-platform."""
-    # Normalize both Windows and Unix slashes so extraction works regardless of OS
+def sanitize_filename(filename: str | None) -> str:
+    """Strip directory traversal sequences and unsafe characters from uploaded filename cross-platform.
+
+    Handles Windows backslashes on Linux, POSIX slashes on Windows, drive letter prefixes,
+    ASCII control characters, leading/trailing dots and spaces, and directory traversal sequences.
+    """
+    if not filename or not isinstance(filename, str):
+        return "unnamed_document"
+
+    # Normalize Windows backslashes to forward slashes for cross-platform basename extraction
     normalized = filename.replace("\\", "/")
+
+    # Strip any drive letter prefix (e.g., C:, D:)
+    normalized = re.sub(r"^[a-zA-Z]:", "", normalized)
+
+    # Extract the basename by stripping everything up to the final slash
     clean_name = re.sub(r"^.*[/\\]", "", normalized)
-    clean_name = re.sub(r"[\x00-\x1f]", "", clean_name).strip()
+
+    # Strip ASCII control characters (\x00-\x1f, \x7f)
+    clean_name = re.sub(r"[\x00-\x1f\x7f]", "", clean_name).strip()
+
+    # Strip leading dots to prevent hidden files and traversal tricks
     clean_name = clean_name.lstrip(".")
+
+    # Strip trailing dots or spaces
+    clean_name = clean_name.rstrip(". ")
+
     if not clean_name:
         return "unnamed_document"
+
     return clean_name
 
 
