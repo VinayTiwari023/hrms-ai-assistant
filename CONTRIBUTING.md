@@ -8,7 +8,7 @@ This project is an open-source, backend-only reference implementation providing 
 
 ## 1. Code of Conduct
 
-All contributors, maintainers, and community members are expected to follow the [Code of Conduct](file:///C:/Projects/hrms-ai-assistant/CODE_OF_CONDUCT.md). Please ensure respectful and constructive collaboration.
+All contributors, maintainers, and community members are expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md). Please ensure respectful and constructive collaboration.
 
 ---
 
@@ -119,4 +119,4 @@ All contributions must uphold the core architectural invariants of this project:
 
 ## 6. Reporting Security Vulnerabilities
 
-Please do **NOT** open public GitHub issues for security vulnerabilities. Review our [Security Policy](file:///C:/Projects/hrms-ai-assistant/SECURITY.md) for responsible disclosure instructions.
+Please do **NOT** open public GitHub issues for security vulnerabilities. Review our [Security Policy](SECURITY.md) for responsible disclosure instructions.
