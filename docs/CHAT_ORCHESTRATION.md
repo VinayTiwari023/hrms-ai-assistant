@@ -269,4 +269,4 @@ If you see `response_status: "fallback"` unexpectedly, the LLM may be calling to
 
 ## 10. Phase 6 Streaming Integration
 
-For real-time token streaming using Server-Sent Events (SSE), invoke `POST /api/v1/chat/stream`. See [docs/STREAMING.md](file:///C:/Projects/hrms-ai-assistant/docs/STREAMING.md) for full protocol details and client integration examples.
+For real-time token streaming using Server-Sent Events (SSE), invoke `POST /api/v1/chat/stream`. See [STREAMING.md](STREAMING.md) for full protocol details and client integration examples.

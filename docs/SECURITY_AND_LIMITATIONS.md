@@ -51,6 +51,6 @@ To maintain accurate positioning for enterprise architects and open-source adopt
 
 ## 4. Reporting Security Vulnerabilities
 
-We take security issues seriously. If you discover a security vulnerability in this project, please report it privately according to our [Security Policy](file:///C:/Projects/hrms-ai-assistant/docs/SECURITY.md).
+We take security issues seriously. If you discover a security vulnerability in this project, please report it privately according to our [Security Policy](../SECURITY.md).
 
 **Do NOT report security vulnerabilities via public GitHub issues.**

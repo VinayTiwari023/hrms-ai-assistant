@@ -57,14 +57,48 @@ def create_text_pdf(pages: list[str]) -> bytes:
 
 
 def test_filename_sanitization_and_traversal_prevention() -> None:
-    """Verify sanitize_filename strips path traversal sequences and dangerous characters."""
+    """Verify sanitize_filename strips path traversal sequences and dangerous characters across platforms."""
+    # 1. Traversal and relative path sequences
     assert sanitize_filename("../../etc/passwd") == "passwd"
     assert sanitize_filename("..\\..\\windows\\system32\\cmd.exe") == "cmd.exe"
+    assert sanitize_filename("../../../secret.pdf") == "secret.pdf"
+    assert sanitize_filename("..\\..\\..\\boot.ini") == "boot.ini"
+    assert sanitize_filename("../..\\../etc/passwd") == "passwd"
+
+    # 2. POSIX absolute and relative paths (tested cross-platform)
     assert sanitize_filename("/var/data/confidential.pdf") == "confidential.pdf"
+    assert sanitize_filename("dir/subdir/nested/notes.md") == "notes.md"
+    assert sanitize_filename("/home/employee/documents/review.docx") == "review.docx"
+
+    # 3. Windows drive paths and backslash paths (tested on Windows and Linux)
     assert sanitize_filename("C:\\Users\\Admin\\policy.docx") == "policy.docx"
+    assert sanitize_filename("D:\\hrms\\uploads\\onboarding.pdf") == "onboarding.pdf"
+    assert sanitize_filename("C:policy.docx") == "policy.docx"
+    assert sanitize_filename("folder\\subfolder\\report.pdf") == "report.pdf"
+
+    # 4. Hidden files and leading/trailing dots
     assert sanitize_filename("....hidden_file.txt") == "hidden_file.txt"
+    assert sanitize_filename(".env") == "env"
+    assert sanitize_filename(".bashrc") == "bashrc"
+    assert sanitize_filename("...hidden.docx...") == "hidden.docx"
+
+    # 5. Normal safe filenames
     assert sanitize_filename("normal_leave_policy.md") == "normal_leave_policy.md"
+    assert sanitize_filename("safe document (1) [final].pdf") == "safe document (1) [final].pdf"
+    assert sanitize_filename("handbook-2026_v2.docx") == "handbook-2026_v2.docx"
+
+    # 6. Malicious inputs and control characters
+    assert sanitize_filename("report\x00evil.pdf") == "reportevil.pdf"
+    assert sanitize_filename("\x1fmalicious.docx") == "malicious.docx"
+    assert sanitize_filename("data\x7ftamper.txt") == "datatamper.txt"
+
+    # 7. Empty, whitespace-only, and degenerate inputs
     assert sanitize_filename("") == "unnamed_document"
+    assert sanitize_filename("   ") == "unnamed_document"
+    assert sanitize_filename(None) == "unnamed_document"
+    assert sanitize_filename("....") == "unnamed_document"
+    assert sanitize_filename(".../...") == "unnamed_document"
+    assert sanitize_filename("...\\...") == "unnamed_document"
 
 
 def test_extractor_resolution_and_unsupported_formats() -> None:
