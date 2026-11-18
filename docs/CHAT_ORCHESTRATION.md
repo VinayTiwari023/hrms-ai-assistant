@@ -181,10 +181,10 @@ cd C:\Projects\hrms-ai-assistant
 
 ```powershell
 # 1. Register and login
-$body = '{"email":"alice@novatech.com","password":"securePass123","full_name":"Alice","employee_id":"EMP-1001"}'
+$body = '{"email":"alex.rivera@novatech-fictional.internal","password":"SecurePassword123!","full_name":"Alex Rivera","employee_id":"EMP-1001"}'
 $reg = Invoke-RestMethod -Uri http://127.0.0.1:8000/api/v1/auth/register -Method POST -Body $body -ContentType application/json
 
-$loginBody = '{"email":"alice@novatech.com","password":"securePass123"}'
+$loginBody = '{"email":"alex.rivera@novatech-fictional.internal","password":"SecurePassword123!"}'
 $login = Invoke-RestMethod -Uri http://127.0.0.1:8000/api/v1/auth/login -Method POST -Body $loginBody -ContentType application/json
 $token = $login.access_token
 

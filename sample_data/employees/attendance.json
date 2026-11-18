@@ -2,7 +2,7 @@
   "today": {
     "EMP-1001": {
       "employee_id": "EMP-1001",
-      "date": "2026-11-16",
+      "date": "2026-11-18",
       "status": "Present",
       "check_in": "09:12",
       "check_out": null,
@@ -12,7 +12,7 @@
     },
     "EMP-1002": {
       "employee_id": "EMP-1002",
-      "date": "2026-11-16",
+      "date": "2026-11-18",
       "status": "Present",
       "check_in": "08:55",
       "check_out": null,
@@ -22,7 +22,7 @@
     },
     "EMP-1003": {
       "employee_id": "EMP-1003",
-      "date": "2026-11-16",
+      "date": "2026-11-18",
       "status": "Present",
       "check_in": "08:30",
       "check_out": null,
@@ -32,7 +32,7 @@
     },
     "EMP-1004": {
       "employee_id": "EMP-1004",
-      "date": "2026-11-16",
+      "date": "2026-11-18",
       "status": "On Leave",
       "check_in": null,
       "check_out": null,

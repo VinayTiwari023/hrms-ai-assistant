@@ -10,7 +10,7 @@ from fastapi import Request
 
 from app.core.config import Settings, get_settings
 from app.core.exceptions import AuthorizationError, LLMServiceError, ResourceNotFoundError
-from app.integrations.ollama.client import OllamaClient, ToolCall
+from app.integrations.ollama.client import OllamaClient, ToolCall, strip_thinking_tags
 from app.repositories.conversation_repo import ConversationRepository
 from app.schemas.auth import AuthenticatedPrincipal
 from app.schemas.chat import CitationSummary, ToolCallSummary
@@ -303,9 +303,20 @@ class StreamingChatOrchestrator:
             yield format_sse("error", {"code": "STREAM_ERROR", "message": "Token streaming interrupted."})
             return
 
-        final_text = "".join(accumulated_tokens).strip()
+        raw_final_text = "".join(accumulated_tokens).strip()
+        final_text = strip_thinking_tags(raw_final_text)
+
+        # MANDATORY SECURITY RULE: Internal thinking is never returned to user-facing clients.
+        # If output is empty, safely fall back without exposing reasoning.
         if not final_text:
-            final_text = "I'm sorry, I could not generate a response. Please try again."
+            if all_tool_results:
+                final_text = "I retrieved the requested information, but couldn't generate a readable answer. Please try again."
+            else:
+                final_text = "I couldn't generate a readable answer. Please try again."
+            response_status = "fallback"
+            yield format_sse("content_delta", {"delta": final_text})
+        else:
+            response_status = "ok"
 
         # 10. Persist Final Assistant Turn (Only on full success)
         assistant_msg = self._conv_repo.add_message_extended(
@@ -326,7 +337,7 @@ class StreamingChatOrchestrator:
                 "content": final_text,
                 "citations": [c.model_dump() for c in citations_emitted],
                 "tool_calls_summary": [s.model_dump() for s in tool_summaries],
-                "response_status": "ok",
+                "response_status": response_status,
                 "created_at": assistant_msg["created_at"],
             },
         )

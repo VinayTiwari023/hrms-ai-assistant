@@ -64,8 +64,12 @@ class MockHRMSAdapter(BaseHRMSAdapter):
             try:
                 with open(att_file, "r", encoding="utf-8") as f:
                     data = json.load(f)
+                    current_today = date.today().isoformat()
                     for emp_id, record in data.get("today", {}).items():
-                        self.attendance_today[emp_id] = AttendanceToday(**record)
+                        # Treat records inside the mock dataset's "today" section as current-day demonstration fixtures.
+                        rec_data = dict(record)
+                        rec_data["date"] = current_today
+                        self.attendance_today[emp_id] = AttendanceToday(**rec_data)
                     for emp_id, summary in data.get("monthly", {}).items():
                         self.monthly_attendance[emp_id] = MonthlyAttendanceSummary(**summary)
             except Exception as exc:
@@ -133,18 +137,32 @@ class MockHRMSAdapter(BaseHRMSAdapter):
     async def get_attendance_today(self, employee_id: str) -> AttendanceToday:
         if employee_id not in self.employees:
             raise ResourceNotFoundError(f"Employee with ID '{employee_id}' not found in mock HRMS.")
-        return self.attendance_today.get(
-            employee_id,
-            AttendanceToday(
-                employee_id=employee_id,
-                date=date.today().isoformat(),
-                status="Not Marked",
-                check_in=None,
-                check_out=None,
-                work_minutes=0,
-                is_late=False,
-                late_minutes=0,
-            ),
+        current_today = date.today().isoformat()
+        rec = self.attendance_today.get(employee_id)
+        if rec:
+            # Ensure get_attendance_today never returns a stale date as today's date,
+            # preserving all other fixture fields (status, check-in, work_minutes, etc.)
+            return AttendanceToday(
+                employee_id=rec.employee_id,
+                date=current_today,
+                status=rec.status,
+                check_in=rec.check_in,
+                check_out=rec.check_out,
+                work_minutes=rec.work_minutes,
+                is_late=rec.is_late,
+                late_minutes=rec.late_minutes,
+            )
+
+        # Fallback "Not Marked" record with current date
+        return AttendanceToday(
+            employee_id=employee_id,
+            date=current_today,
+            status="Not Marked",
+            check_in=None,
+            check_out=None,
+            work_minutes=0,
+            is_late=False,
+            late_minutes=0,
         )
 
     async def get_monthly_attendance(

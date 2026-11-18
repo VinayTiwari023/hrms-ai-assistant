@@ -7,7 +7,7 @@ from typing import Any
 
 from app.core.config import Settings
 from app.core.exceptions import LLMServiceError, ResourceNotFoundError
-from app.integrations.ollama.client import OllamaClient
+from app.integrations.ollama.client import OllamaClient, strip_thinking_tags
 from app.repositories.conversation_repo import ConversationRepository
 from app.schemas.auth import AuthenticatedPrincipal
 from app.schemas.chat import ChatResponse
@@ -207,7 +207,7 @@ class ChatOrchestrator:
                     continue
 
                 # No tool calls → final answer
-                final_content = turn_result.content.strip()
+                final_content = strip_thinking_tags(turn_result.content or "")
                 break
 
             else:
@@ -221,7 +221,7 @@ class ChatOrchestrator:
                 try:
                     final_options = {"temperature": self._settings.chat_final_temperature}
                     final_turn = await self._ollama.chat(messages=messages, tools=None, options=final_options)
-                    final_content = final_turn.content.strip()
+                    final_content = strip_thinking_tags(final_turn.content or "")
                     response_status = "fallback"
                 except LLMServiceError:
                     final_content = "I encountered too many tool-calling iterations to answer your question. Please try rephrasing."
@@ -235,13 +235,17 @@ class ChatOrchestrator:
             )
 
         # 9 & 10. Persist final assistant message
+        # MANDATORY SECURITY RULE: The model's thinking field is internal-only.
+        # Never return it to API clients, never persist it as an assistant message,
+        # never emit it through SSE, never include it in conversation history.
+        final_content = strip_thinking_tags(final_content)
+
         if not final_content:
-            if "turn_result" in locals() and turn_result.thinking and not turn_result.has_tool_calls:
-                final_content = turn_result.thinking.strip()
-                response_status = "ok"
+            if all_tool_results:
+                final_content = "I retrieved the requested information, but couldn't generate a readable answer. Please try again."
             else:
-                final_content = "I'm sorry, I couldn't generate a response. Please try again."
-                response_status = "error"
+                final_content = "I couldn't generate a readable answer. Please try again."
+            response_status = "fallback"
 
         assistant_msg = self._conv_repo.add_message_extended(
             conversation_id=conversation_id,

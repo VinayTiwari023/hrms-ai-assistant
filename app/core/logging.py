@@ -10,6 +10,8 @@ SENSITIVE_PATTERNS = [
     (re.compile(r"(bearer\s+)[a-zA-Z0-9_\-\.]{15,}", re.IGNORECASE), r"\1[REDACTED_TOKEN]"),
     (re.compile(r"('password'|\"password\")\s*:\s*('[^']+'|\"[^\"]+\")", re.IGNORECASE), r'\1: "[REDACTED]"'),
     (re.compile(r"('secret'|\"secret\")\s*:\s*('[^']+'|\"[^\"]+\")", re.IGNORECASE), r'\1: "[REDACTED]"'),
+    (re.compile(r"<think>.*?</think>", re.DOTALL), r"[REDACTED_THINKING]"),
+    (re.compile(r"<think>.*$", re.DOTALL), r"[REDACTED_THINKING]"),
 ]
 
 

@@ -48,6 +48,89 @@ class ChatTurnResult:
         return bool(self.tool_calls)
 
 
+def strip_thinking_tags(text: str | None) -> str:
+    """Strip all internal reasoning <think>...</think> tags and dangling think blocks from text.
+
+    Ensures internal LLM thinking is never returned to user-facing API clients or persisted.
+    """
+    if not text:
+        return ""
+    # 1. Remove complete <think>...</think> blocks
+    cleaned = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+    # 2. Remove any dangling/unclosed <think>... blocks to the end of the string
+    cleaned = re.sub(r"<think>.*$", "", cleaned, flags=re.DOTALL)
+    # 3. Strip any stray </think> closing tags
+    cleaned = re.sub(r"</think>", "", cleaned)
+    return cleaned.strip()
+
+
+class ThinkTagFilter:
+    """Stream filter that suppresses <think>...</think> blocks from token streams in real-time."""
+
+    def __init__(self) -> None:
+        self.in_think: bool = False
+        self.buffer: str = ""
+
+    def process(self, token: str) -> list[str]:
+        """Process an incoming token and return zero or more safe content deltas."""
+        if not token:
+            return []
+
+        deltas: list[str] = []
+        self.buffer += token
+
+        while self.buffer:
+            if self.in_think:
+                # We are inside <think>...</think>; look for </think>
+                if "</think>" in self.buffer:
+                    _, after = self.buffer.split("</think>", 1)
+                    self.in_think = False
+                    self.buffer = after
+                else:
+                    # Keep small tail of buffer in case </think> tag is split across incoming chunks
+                    if len(self.buffer) > 32:
+                        self.buffer = self.buffer[-8:]
+                    break
+            else:
+                # We are outside <think>; look for <think>
+                if "<think>" in self.buffer:
+                    before, after = self.buffer.split("<think>", 1)
+                    if before:
+                        deltas.append(before)
+                    self.in_think = True
+                    self.buffer = after
+                else:
+                    # Check if buffer ends with a partial prefix of "<think>"
+                    tag = "<think>"
+                    has_partial = False
+                    for i in range(len(tag) - 1, 0, -1):
+                        prefix = tag[:i]
+                        if self.buffer.endswith(prefix):
+                            emit_len = len(self.buffer) - len(prefix)
+                            if emit_len > 0:
+                                deltas.append(self.buffer[:emit_len])
+                                self.buffer = prefix
+                            has_partial = True
+                            break
+                    if not has_partial:
+                        deltas.append(self.buffer)
+                        self.buffer = ""
+                    else:
+                        break
+
+        return deltas
+
+    def flush(self) -> list[str]:
+        """Flush remaining buffer at the end of the stream."""
+        deltas: list[str] = []
+        if not self.in_think and self.buffer:
+            cleaned = strip_thinking_tags(self.buffer)
+            if cleaned:
+                deltas.append(cleaned)
+        self.buffer = ""
+        return deltas
+
+
 class OllamaClient:
     """Async client communicating with Ollama REST API endpoints."""
 
@@ -125,14 +208,19 @@ class OllamaClient:
             msg_data = data.get("message") or {}
             raw_content = msg_data.get("content") or ""
 
-            # Extract optional thinking trace (both native msg_data['thinking'] and inline <think> tags)
+            # Extract native thinking if provided by model
             thinking: str | None = msg_data.get("thinking")
-            clean_content = raw_content
-            if not thinking:
-                think_match = re.search(r"<think>(.*?)</think>", raw_content, flags=re.DOTALL)
-                if think_match:
-                    thinking = think_match.group(1).strip()
-                    clean_content = re.sub(r"<think>.*?</think>", "", raw_content, flags=re.DOTALL).strip()
+            if thinking:
+                thinking = thinking.strip() or None
+
+            # If native thinking was not provided, extract inline thinking from tags for internal inspection
+            think_match = re.search(r"<think>(.*?)</think>", raw_content, flags=re.DOTALL)
+            if think_match and not thinking:
+                thinking = think_match.group(1).strip() or None
+
+            # MANDATORY SECURITY RULE: Always remove inline thinking tags from normal response content,
+            # even when the native thinking field is also populated.
+            clean_content = strip_thinking_tags(raw_content)
 
             # Parse tool calls
             parsed_tools: list[ToolCall] = []
@@ -204,6 +292,7 @@ class OllamaClient:
 
         try:
             client = self._get_client(timeout=timeout or self.timeout)
+            think_filter = ThinkTagFilter()
             async with client.stream("POST", url, json=payload, timeout=timeout or self.timeout) as resp:
                 resp.raise_for_status()
                 async for line in resp.aiter_lines():
@@ -213,9 +302,15 @@ class OllamaClient:
                         data = json.loads(line)
                     except json.JSONDecodeError:
                         continue
-                    delta = (data.get("message") or {}).get("content") or ""
-                    if delta:
-                        yield delta
+                    # MANDATORY SECURITY RULE: Never yield native thinking fields or inline thinking tokens
+                    msg = data.get("message") or {}
+                    raw_delta = msg.get("content") or ""
+                    if raw_delta:
+                        for safe_delta in think_filter.process(raw_delta):
+                            yield safe_delta
+
+                for safe_delta in think_filter.flush():
+                    yield safe_delta
 
         except httpx.ConnectError as exc:
             raise LLMServiceError(

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hrms-ai-assistant"
-version = "0.1.0"
+version = "0.1.1"
 description = "An independent, open-source-ready HRMS AI Assistant backend with local LLM tool calling, RAG, and generic HRMS adapters."
 readme = "README.md"
 requires-python = ">=3.11"
